@@ -1,0 +1,35 @@
+name: Demo
+options:
+  bundleIdPrefix: com.alexeyhatkevich
+  deploymentTarget:
+    iOS: "17.0"
+packages:
+  LenientMessage:
+    path: ..
+targets:
+  Demo:
+    type: application
+    platform: iOS
+    sources:
+      - Sources
+    dependencies:
+      - package: LenientMessage
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.alexeyhatkevich.swiftlenientdecodablewkscriptmessage
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_KEY_UILaunchScreen_Generation: YES
+        CODE_SIGNING_ALLOWED: NO
+        SWIFT_VERSION: "6.0"
+        SWIFT_STRICT_CONCURRENCY: minimal
+schemes:
+  Demo:
+    build:
+      targets:
+        Demo: all
+    run:
+      config: Debug
+    test:
+      config: Debug
+      targets:
+        - package: LenientMessage/LenientMessageTests

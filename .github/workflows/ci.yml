@@ -1,0 +1,13 @@
+name: CI
+on: [push, pull_request]
+jobs:
+  test:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Package tests (macOS)
+        run: swift test
+      - name: Demo build and tests (iOS simulator)
+        run: |
+          ID=$(xcrun simctl list devices available -j | python3 -c "import json,sys; d=json.load(sys.stdin)['devices']; print(next(x['udid'] for k,v in d.items() if 'iOS' in k for x in v if 'iPhone' in x['name']))")
+          xcodebuild -project Demo/Demo.xcodeproj -scheme Demo -destination "id=$ID" CODE_SIGNING_ALLOWED=NO build test

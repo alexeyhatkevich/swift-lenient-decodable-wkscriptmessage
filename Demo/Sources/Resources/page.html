@@ -1,0 +1,19 @@
+<!doctype html>
+<html><head><meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+ body { font-family: -apple-system; padding: 12px; }
+ button { display:block; width:100%; font-size:17px; padding:12px; margin:6px 0; }
+</style></head>
+<body>
+<h3>Step finished (local page)</h3>
+<button onclick="send({status:'success', stepId:'s1', reference:'r-1'})">1. String ids (expected shape)</button>
+<button onclick="send({status:'success', stepId:1, reference:42})">2. Numeric ids</button>
+<button onclick="send({status:'success', stepId:'s1', reference:null})">3. reference: null</button>
+<button onclick="send({status:'success', stepId:'s1'})">4. reference key missing</button>
+<button onclick="send({status:'success', reference:'r-1', extra:{a:1}, note:null})">5. Extra keys</button>
+<button onclick="send(JSON.stringify({status:'success', reference:99}))">6. JSON text body</button>
+<button onclick="send('hello')">7. Garbage body</button>
+<script>
+ function send(payload) { window.webkit.messageHandlers.checkout.postMessage(payload); }
+</script>
+</body></html>
